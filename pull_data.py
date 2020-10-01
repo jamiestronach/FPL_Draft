@@ -1,4 +1,5 @@
 import requests
+import json
 
 class Pull_Data():
 
@@ -23,7 +24,5 @@ class Pull_Data():
         
     def get_response(self):
         response = requests.request("GET", self.url, headers=self.headers, data = self.payload)
-        return response.text.encode('utf8')
+        return response
 
-
-print(Pull_Data(38606).get_response())
