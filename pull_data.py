@@ -31,7 +31,10 @@ class Pull_Data():
         return json_object
 
     def get_number_players(self):
-        return len(self.get_json()["league_entries"])
+        try: 
+            return len(self.get_json()["league_entries"])
+        except KeyError:
+            return "Error loading the data. Please check your league code."
 
     def get_player_names(self):
         names = {}
@@ -88,7 +91,5 @@ class Pull_Data():
         except KeyError:
             return "Error loading the data. Please check your league code."
 
+
                         
-
-
-print(Pull_Data(90182).get_scores())
