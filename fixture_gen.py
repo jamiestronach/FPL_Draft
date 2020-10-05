@@ -30,14 +30,32 @@ class Fixture_Generator():
             for i in _round:
                 r += i
             if len(set(r)) == len(r):
-                rounds.append(_round)
+                rounds.append(list(_round))
 
         return rounds
 
+    def full_fixture_cycle(self):
+
+        fixtures = []
+
+        for _cycle in itertools.combinations(self.different_round_coms(), int(self.num_players)):
+
+            cycle = list(itertools.chain.from_iterable(_cycle))
+            c = []
+            for i in cycle:
+                c.append(str(i[0]) + str(i[1]))
+                if set(c) == c:
+                    fixtures.append(cycle)
+                
+         
+        return fixtures
 
 
 
-print(len(Fixture_Generator().different_round_coms()))
+# print(Fixture_Generator().different_round_coms())
+print(Fixture_Generator().full_fixture_cycle())
+
+
 
     
         
