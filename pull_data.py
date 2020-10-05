@@ -26,3 +26,15 @@ class Pull_Data():
         response = requests.request("GET", self.url, headers=self.headers, data = self.payload)
         return response
 
+    def get_json(self):
+        json_object = self.get_response().json()
+        return json_object
+
+    def number_players(self):
+        return len(self.get_json()["league_entries"])
+
+    # def get_players(self):
+    #     self.get_response()
+
+
+print(Pull_Data(38606).get_json().keys())
