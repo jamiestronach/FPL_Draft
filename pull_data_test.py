@@ -14,8 +14,13 @@ class TestPull_Data(unittest.TestCase):
         self.assertIsInstance(Pull_Data(league_code=league_code).get_json(), dict)
         # Checking that league entries is one of the keys in the dictionary
         self.assertIn('league_entries', Pull_Data(league_code=league_code).get_json().keys())
-        # Checking that 
-        self.assertGreater(Pull_Data(league_code=league_code).number_players(), 11)
+        # Checking that there are players in the league
+        self.assertGreater(Pull_Data(league_code=league_code).number_players(), 0)
+
+    def test_get_names(self):
+        self.asser
+
+
         
 
 

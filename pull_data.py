@@ -30,11 +30,53 @@ class Pull_Data():
         json_object = self.get_response().json()
         return json_object
 
-    def number_players(self):
+    def get_number_players(self):
         return len(self.get_json()["league_entries"])
 
-    # def get_players(self):
-    #     self.get_response()
+    def get_player_names(self):
+        names = {}
+        
+        for player in self.get_json()["league_entries"]:
+            names[player["id"]] = {"name" : f"{player['player_first_name']} {player['player_last_name']}"}
+        
+        return names
+
+    def _get_player_scores(self):
+        names = self.get_player_names()
+
+        for game in self.get_json()["matches"]:
+            for player in ["1", "2"]:
+                if game[f"league_entry_{player}"] in names:
+                    names[game[f"league_entry_{player}"]][f'''GW{game["event"]}'''] = game[f"league_entry_{player}_points"]
+            
+        return names
+
+    def get_last_active_gameweek(self):
+        names = self._get_player_scores()
+
+        for week in range(1,39):
+            GW = week
+            inactive_players = 0 
+            for player in names.keys():
+                if names[player][f'''GW{week}'''] == 0:
+                    inactive_players += 1
+                    if inactive_players >= 2: 
+                        return GW -1
+
+    def _remove_blank_weeks(self):
+        last_GW = self.get_last_active_gameweek()
+        names = self._get_player_scores()
+
+        for week in range(last_GW + 1, 39):
+            for player in names.keys():
+                del names[player][f'''GW{week}''']
+
+        return names
+
+    def get_scores(self):
+        return self._remove_blank_weeks()
+
+                        
 
 
-print(Pull_Data(38606).get_json().keys())
+print(Pull_Data(38606).get_scores())
