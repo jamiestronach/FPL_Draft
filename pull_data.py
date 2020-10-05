@@ -83,9 +83,12 @@ class Pull_Data():
         return names
 
     def get_scores(self):
-        return self._rename_average()
+        try:
+            return self._rename_average()
+        except KeyError:
+            return "Error loading the data. Please check your league code."
 
                         
 
 
-print(Pull_Data(90184).get_scores())
+print(Pull_Data(90182).get_scores())
