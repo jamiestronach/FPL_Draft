@@ -73,10 +73,19 @@ class Pull_Data():
 
         return names
 
+    def _rename_average(self):
+        names = self._remove_blank_weeks()
+
+        for player in names.keys():
+            if names[player]["name"] == 'None None':
+                names[player]["name"] = "Weekly Average"
+
+        return names
+
     def get_scores(self):
-        return self._remove_blank_weeks()
+        return self._rename_average()
 
                         
 
 
-print(Pull_Data(38606).get_scores())
+print(Pull_Data(90184).get_scores())
