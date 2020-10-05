@@ -51,50 +51,43 @@ class Fixture_Generator():
 
         return rounds
 
+    def round_combinations_combined(self):
+        
+        return [[game[0] + game[1] for game in games] for games in self.round_combinations()]
+
     def random_combinations(self):
         
         fixtures = []
         games_played = []
+
+        combinations = self.round_combinations()
         
-        while len(fixtures) <= (len(self.round_combinations()[0]) * 2) -1:
-            _round = random.choice(self.round_combinations())
+        while len(fixtures) <= (len(combinations[0]) * 2) -1:
+            _round = random.choice(combinations)
+            non_duplicates = 0
             for game in _round:
-                if str(game[0]) + str(game[1]) in games_played:
+                
+                if f"""{str(game[0])}{str(game[1])}""" in games_played:                   
                     break
                 else:
-                    games_played += str(game[0]) + str(game[1])
-
-
-
-
-
-
-
-
-
+                    games_played.append(f"""{str(game[0])}{str(game[1])}""")
+                    non_duplicates += 1
+                    if non_duplicates == (len(combinations[0])):
+                        fixtures.append(_round)
 
     
 
-
-
-# print(Fixture_Generator().round_combinations())
-
-print(Fixture_Generator().round_combinations()[0])
+        return fixtures
 
 
 
-
-
-    
         
 
-
-
-
     
 
 
 
+print(Fixture_Generator().round_combinations_combined())
 
-
+# print(Fixture_Generator().random_combinations())
 
