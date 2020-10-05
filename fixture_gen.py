@@ -1,5 +1,6 @@
 from pull_data import Pull_Data
 import itertools
+import random
 
 league_code = 38606
 
@@ -11,7 +12,14 @@ class Fixture_Generator():
         self.player_id = list(Pull_Data(league_code=league_code).get_player_names())
 
     
-    def different_game_coms(self):
+    def game_combinations(self):
+
+        """Calculates all the possible combinations of games, with each team playing each other only once. Orders the each fixture so the side 
+        with the highest id is the first number.
+
+        Returns:
+            list: contains list of all the game combinations for a given number of fixtures. 
+        """
 
         fixtures = []
         iter_list = itertools.combinations(self.player_id, 2)
@@ -27,12 +35,13 @@ class Fixture_Generator():
         and that each set of fixtures is unique. 
 
         Returns:
-            list: Returns list of lists containing the fixtures, with each game indicated by paired ids within a single list. 
+            list: Returns nested lists containing the fixtures. Each initial list contains a group of fixtures, with each list inside that containing
+            paired team ids for individual games. 
         """
 
         rounds = []
 
-        for _round in itertools.combinations(self.different_game_coms(), int(self.num_players / 2)):
+        for _round in itertools.combinations(self.game_combinations(), int(self.num_players / 2)):
 
             duplicate_checker = []
             for team in _round:
@@ -42,29 +51,37 @@ class Fixture_Generator():
 
         return rounds
 
-
-    # Full fixtures too ambitious for my computer by far in terms of CPU and time taken to work everything out. 
-    # def full_fixture_cycle(self):
-
-    #     fixtures = []
-
-    #     for _cycle in itertools.combinations(self.different_round_coms(), int(self.num_players)):
-    #         cycle = list(itertools.chain.from_iterable(_cycle))
-    #         c = []
-    #         for i in cycle:
-    #             c.append(str(i[0]) + str(i[1]))
-    #         print(len(set(c)))           
-    #         if len(set(c)) == len(c):
-    #             print(_cycle)
-    #             fixtures.append(_cycle)
+    def random_combinations(self):
         
-    #     return fixtures
+        fixtures = []
+        games_played = []
+        
+        while len(fixtures) <= (len(self.round_combinations()[0]) * 2) -1:
+            _round = random.choice(self.round_combinations())
+            for game in _round:
+                if str(game[0]) + str(game[1]) in games_played:
+                    break
+                else:
+                    games_played += str(game[0]) + str(game[1])
+
+
+
+
+
+
+
+
+
+
     
 
 
 
-print(Fixture_Generator().round_combinations())
-# print(Fixture_Generator().full_fixture_cycle())
+# print(Fixture_Generator().round_combinations())
+
+print(Fixture_Generator().round_combinations()[0])
+
+
 
 
 
