@@ -53,27 +53,29 @@ class Fixture_Generator():
 
     def round_combinations_combined(self):
         
-        return [[game[0] + game[1] for game in games] for games in self.round_combinations()]
+        return [[str(team[0]) + str(team[1]) for team in games] for games in self.round_combinations()]
 
     def random_combinations(self):
         
         fixtures = []
         games_played = []
 
-        combinations = self.round_combinations()
+        combinations = self.round_combinations_combined()
         
         while len(fixtures) <= (len(combinations[0]) * 2) -1:
             _round = random.choice(combinations)
             non_duplicates = 0
             for game in _round:
                 
-                if f"""{str(game[0])}{str(game[1])}""" in games_played:                   
+                if game in games_played:                   
                     break
                 else:
-                    games_played.append(f"""{str(game[0])}{str(game[1])}""")
+                    games_played.append(game)
                     non_duplicates += 1
                     if non_duplicates == (len(combinations[0])):
+                        combinations = [theround for theround in combinations if game not in theround]
                         fixtures.append(_round)
+                        
 
     
 
@@ -87,7 +89,17 @@ class Fixture_Generator():
 
 
 
-print(Fixture_Generator().round_combinations_combined())
+# print(Fixture_Generator().round_combinations_combined())
 
-# print(Fixture_Generator().random_combinations())
+print(Fixture_Generator().random_combinations())
+# print(len(Fixture_Generator().game_combinations()))
 
+
+# print(len(Fixture_Generator().round_combinations_combined()))
+
+# new_list = [games for games in Fixture_Generator().round_combinations_combined()]
+
+# print(new_list)
+# 150642150578
+
+# print(len([game for game in Fixture_Generator().round_combinations_combined() if "150642150578" not in game]))
