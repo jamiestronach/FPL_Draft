@@ -55,51 +55,37 @@ class Fixture_Generator():
         
         return [[str(team[0]) + str(team[1]) for team in games] for games in self.round_combinations()]
 
-    def random_combinations(self):
+    def team_fixtures_blank(self):
+
+        team_fixtures = {}
+
+        for team in self.player_id:
+            team_fixtures[team] = [0] * (len(self.player_id) -1)
         
-        fixtures = []
-        games_played = []
+        return team_fixtures
 
-        combinations = self.round_combinations_combined()
-        
-        while len(fixtures) <= (len(combinations[0]) * 2) -1:
-            _round = random.choice(combinations)
-            non_duplicates = 0
-            for game in _round:
-                
-                if game in games_played:                   
-                    break
-                else:
-                    games_played.append(game)
-                    non_duplicates += 1
-                    if non_duplicates == (len(combinations[0])):
-                        combinations = [theround for theround in combinations if game not in theround]
-                        fixtures.append(_round)
-                        
+    def team_fixtures(self):
 
-    
+        team_fixtures = self.team_fixtures_blank()
+        teams = self.player_id
 
-        return fixtures
+        for team in teams:
 
+            for gameweek, opponent in enumerate(team_fixtures[team]):
+                if opponent == 0:
+                    team_fixtures[team][gameweek] = random.choice(teams)
 
+        return team_fixtures
 
         
 
-    
+        
 
 
 
-# print(Fixture_Generator().round_combinations_combined())
-
-print(Fixture_Generator().random_combinations())
-# print(len(Fixture_Generator().game_combinations()))
+print(Fixture_Generator().team_fixtures())
+        
 
 
-# print(len(Fixture_Generator().round_combinations_combined()))
 
-# new_list = [games for games in Fixture_Generator().round_combinations_combined()]
-
-# print(new_list)
-# 150642150578
-
-# print(len([game for game in Fixture_Generator().round_combinations_combined() if "150642150578" not in game]))
+        
