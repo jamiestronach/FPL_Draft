@@ -95,20 +95,53 @@ class Fixture_Generator():
             for gameweek, opponent in enumerate(team_fixtures[team]):
                 
                 if opponent == 0:
-                    game_opposition = random.choice(played_in_gameweek[gameweek])                    
-                    team_fixtures[team][gameweek] = game_opposition
-                    team_fixtures[game_opposition][gameweek] = team
-                    played_in_gameweek[gameweek].remove(game_opposition)                        
+
+                    attempts = 0
+
+                    while True:
+
+                        game_opposition = random.choice(played_in_gameweek[gameweek])
+                        
+                        if game_opposition not in team_fixtures[team]:
+                            team_fixtures[team][gameweek] = game_opposition
+                            team_fixtures[game_opposition][gameweek] = team
+                            played_in_gameweek[gameweek].remove(game_opposition)
+                            break
+
+                        if (len(played_in_gameweek[gameweek]) == 1) and (played_in_gameweek[gameweek] not in team_fixtures[team]):
+                            return False
+
+                        if attempts > 20:
+                            return False
+                        
+                        attempts += 1
 
         return team_fixtures
 
-        
+    def get_result(self):
+
+        while True:
+            results = self.team_fixtures()
+            if results:
+                return results
+                break
+
+    def get_result_set(self, number):
+
+        results = []
+
+        for _results in range(number):
+            results.append(self.get_result())
+
+        return results
 
         
 
+        
 
 
-print(Fixture_Generator().team_fixtures())
+
+Fixture_Generator().get_result_set(1000)
         
 
 
