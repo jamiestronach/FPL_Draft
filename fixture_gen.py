@@ -64,16 +64,41 @@ class Fixture_Generator():
         
         return team_fixtures
 
+    def played_in_gameweek(self):
+
+        teams_left = {}
+
+        for week in range(len(self.player_id)):
+            teams_left[week] = self.player_id.copy()
+    
+        return teams_left
+
+    def _remove_team_all_gameweeks(self, team, played_in_gameweek):
+
+        for gameweek in range(len(played_in_gameweek.keys())):
+            if team in played_in_gameweek[gameweek]:
+                played_in_gameweek[gameweek].remove(team)
+
+        return played_in_gameweek
+
+
     def team_fixtures(self):
 
         team_fixtures = self.team_fixtures_blank()
         teams = self.player_id
+        played_in_gameweek = self.played_in_gameweek()
 
         for team in teams:
 
+            played_in_gameweek = self._remove_team_all_gameweeks(team, played_in_gameweek)
+
             for gameweek, opponent in enumerate(team_fixtures[team]):
+                
                 if opponent == 0:
-                    team_fixtures[team][gameweek] = random.choice(teams)
+                    game_opposition = random.choice(played_in_gameweek[gameweek])                    
+                    team_fixtures[team][gameweek] = game_opposition
+                    team_fixtures[game_opposition][gameweek] = team
+                    played_in_gameweek[gameweek].remove(game_opposition)                        
 
         return team_fixtures
 
