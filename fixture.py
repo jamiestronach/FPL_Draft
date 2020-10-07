@@ -23,17 +23,3 @@ class Fixture():
             return 1
         else:
             return 0
-
-    
-
-print(fixtures)
-print(data.get_scores())
-print(Fixture(150578, 0, fixtures).outcome_points)
-        
-
-
-    
-
-
-
-# print(data.get_scores()[150578][0])

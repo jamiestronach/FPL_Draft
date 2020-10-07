@@ -176,7 +176,7 @@ class Fixture_Generator():
 
     
         
-# print(Fixture_Generator().get_result_set(10))
+print(Fixture_Generator().get_fixtures_set(10))
 
 
         

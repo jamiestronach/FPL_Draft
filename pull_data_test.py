@@ -15,12 +15,7 @@ class TestPull_Data(unittest.TestCase):
         # Checking that league entries is one of the keys in the dictionary
         self.assertIn('league_entries', Pull_Data(league_code=league_code).get_json().keys())
         # Checking that there are players in the league
-        self.assertGreater(Pull_Data(league_code=league_code).get_number_players(), 0)
-
-    
-
-
-        
+        self.assertGreater(Pull_Data(league_code=league_code).get_number_players(), 0)      
 
 
 if __name__ == '__main__' :

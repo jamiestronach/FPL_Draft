@@ -51,7 +51,11 @@ class Pull_Data():
         player_names = {}
         
         for player in self.get_json()["league_entries"]:
-            player_names[player["id"]] = player["player_first_name"] + " " +  player["player_last_name"]
+            if player["player_first_name"]:
+                player_names[player["id"]] = player["player_first_name"] + " " +  player["player_last_name"]
+            else:
+                player_names[player["id"]] = "Average"
+
 
         return player_names 
 
@@ -102,7 +106,3 @@ class Pull_Data():
         except KeyError:
             return "Error loading the data. Please check your league code."
 
-
-
-
-# print(Pull_Data(38606).get_player_names())
