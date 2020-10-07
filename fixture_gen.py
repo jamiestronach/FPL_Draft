@@ -2,7 +2,7 @@ from pull_data import Pull_Data
 import itertools
 import random
 
-league_code = 38606
+league_code = 90184
 
 
 class Fixture_Generator():
@@ -100,6 +100,12 @@ class Fixture_Generator():
 
     def team_fixtures(self):
 
+        """ Main algorithm for working fixtures. Attempts to randomise a set of fixtures, and given all the requirements of the fixture list will either be successful or not. 
+
+        Returns:
+            dict or bool: Returns either a dict containing fixtures if successful, or the bool False if not sucessful.
+        """
+
         team_fixtures = self.team_fixtures_blank()
         teams = self.player_id
         played_in_gameweek = self.played_in_gameweek()
@@ -136,6 +142,12 @@ class Fixture_Generator():
 
     def get_result(self):
 
+        """ Runs team_fixture function until a successful result is found and then returns that set of fixtures. 
+
+        Returns:
+            dict: Contains dictionary with each team as the key, and a list as the value with each game they play in order of play. 
+        """
+
         while True:
             results = self.team_fixtures()
             if results:
@@ -143,6 +155,15 @@ class Fixture_Generator():
                 break
 
     def get_result_set(self, number):
+
+        """Function for generating multiple sets of fixtures. 
+
+        Input: Number indicates the number of sets of fixtures that you wish to generate. 
+
+        Returns:
+
+            list : Returns list of dictionaries the length of the entered number value. Each dictionary has each team as the key, and a list as the value with each game they play in order of play. 
+        """
 
         results = []
 
@@ -153,13 +174,9 @@ class Fixture_Generator():
 
         
 
+    
         
-
-
-
 print(Fixture_Generator().get_result_set(10))
-        
-
 
 
         
