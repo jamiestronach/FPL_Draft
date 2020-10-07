@@ -80,37 +80,37 @@ class Pull_Data():
     def get_last_active_gameweek(self):
         names = self._get_player_scores()
 
-        for week in range(1,39):
-            GW = week
+        for week in range(38):
             inactive_players = 0 
             for player in names.keys():
-                if names[player][f'''GW{week}'''] == 0:
+                if names[player][week] == 0:
                     inactive_players += 1
                     if inactive_players >= 2: 
-                        return GW -1
+                        return week
 
     def _remove_blank_weeks(self):
         last_GW = self.get_last_active_gameweek()
         names = self._get_player_scores()
 
-        for week in range(last_GW + 1, 39):
-            for player in names.keys():
-                del names[player][f'''GW{week}''']
-
-        return names
-
-    def _rename_average(self):
-        names = self._remove_blank_weeks()
-
         for player in names.keys():
-            if names[player]["name"] == 'None None':
-                names[player]["name"] = "Weekly Average"
+            names[player] = names[player][: last_GW]
 
         return names
 
+    # def _remove_blank_weeks(self):
+    #     last_GW = self.get_last_active_gameweek()
+    #     names = self._get_player_scores()
+
+    #     for week in range(last_GW + 1, 39):
+    #         for player in names.keys():
+    #             del names[player][f'''GW{week}''']
+
+    #     return names
+
+ 
     def get_scores(self):
         try:
-            return self._rename_average()
+            return self._remove_blank_weeks()
         except KeyError:
             return "Error loading the data. Please check your league code."
 
