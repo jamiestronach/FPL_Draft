@@ -51,11 +51,13 @@ class Fixture_Generator():
 
         return rounds
 
-    def round_combinations_combined(self):
-        
-        return [[str(team[0]) + str(team[1]) for team in games] for games in self.round_combinations()]
-
     def team_fixtures_blank(self):
+
+        """  Creates dictionary that is useful for building on and forms the basis for more complex algorithms. 
+
+        Returns:
+            dict: Creates dictionary containing each team as a key, and the number of games they'll play as 0s in a list.
+        """
 
         team_fixtures = {}
 
@@ -66,6 +68,12 @@ class Fixture_Generator():
 
     def played_in_gameweek(self):
 
+        """
+
+        Returns:
+            dict: Creates dictionary with each gameweek as the key, and a list of every team in the league as the value. 
+        """
+
         teams_left = {}
 
         for week in range(len(self.player_id)):
@@ -74,6 +82,14 @@ class Fixture_Generator():
         return teams_left
 
     def _remove_team_all_gameweeks(self, team, played_in_gameweek):
+
+        """
+
+        Takes: Team ID, and dict created by played_in_gameweek function
+
+        Returns:
+            dict: Returns dictionary in the same format as played_in_gameweek format, but without the entered "team" in the side's list of teams left to play in gameweek. 
+        """
 
         for gameweek in range(len(played_in_gameweek.keys())):
             if team in played_in_gameweek[gameweek]:
@@ -141,7 +157,7 @@ class Fixture_Generator():
 
 
 
-Fixture_Generator().get_result_set(1000)
+print(Fixture_Generator().get_result_set(10))
         
 
 
