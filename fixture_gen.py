@@ -140,7 +140,7 @@ class Fixture_Generator():
 
         return team_fixtures
 
-    def get_result(self):
+    def get_fixtures(self):
 
         """ Runs team_fixture function until a successful result is found and then returns that set of fixtures. 
 
@@ -154,7 +154,7 @@ class Fixture_Generator():
                 return results
                 break
 
-    def get_result_set(self, number):
+    def get_fixtures_set(self, number):
 
         """Function for generating multiple sets of fixtures. 
 
@@ -168,7 +168,7 @@ class Fixture_Generator():
         results = []
 
         for _results in range(number):
-            results.append(self.get_result())
+            results.append(self.get_fixtures())
 
         return results
 
@@ -176,7 +176,7 @@ class Fixture_Generator():
 
     
         
-print(Fixture_Generator().get_result_set(10))
+# print(Fixture_Generator().get_result_set(10))
 
 
         

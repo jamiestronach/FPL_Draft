@@ -36,13 +36,6 @@ class Pull_Data():
         except KeyError:
             return "Error loading the data. Please check your league code."
 
-    # def get_player_names(self):
-        # names = {}
-        
-        # for player in self.get_json()["league_entries"]:
-        #     names[player["id"]] = {"name" : f"{player['player_first_name']} {player['player_last_name']}"}
-        
-        # return names
 
     def get_player_id(self):
 
@@ -52,6 +45,24 @@ class Pull_Data():
             ids[player["id"]] = []
         
         return ids
+
+    def get_player_names(self):
+
+        player_names = {}
+        
+        for player in self.get_json()["league_entries"]:
+            player_names[player["id"]] = player["player_first_name"] + " " +  player["player_last_name"]
+
+        return player_names 
+
+    def get_team_names(self):
+
+        team_names = {}
+
+        for player in self.get_json()["league_entries"]:
+            team_names[player["id"]] = player["entry_name"]
+        
+        return team_names
 
     def _get_player_scores(self):
 
@@ -64,18 +75,6 @@ class Pull_Data():
             
         return ids
 
-
-    
-
-    # def _get_player_scores(self):
-    #     names = self.get_player_names()
-
-    #     for game in self.get_json()["matches"]:
-    #         for player in ["1", "2"]:
-    #             if game[f"league_entry_{player}"] in names:
-    #                 names[game[f"league_entry_{player}"]][f'''GW{game["event"]}'''] = game[f"league_entry_{player}_points"]
-            
-    #     return names
 
     def get_last_active_gameweek(self):
         names = self._get_player_scores()
@@ -97,17 +96,6 @@ class Pull_Data():
 
         return names
 
-    # def _remove_blank_weeks(self):
-    #     last_GW = self.get_last_active_gameweek()
-    #     names = self._get_player_scores()
-
-    #     for week in range(last_GW + 1, 39):
-    #         for player in names.keys():
-    #             del names[player][f'''GW{week}''']
-
-    #     return names
-
- 
     def get_scores(self):
         try:
             return self._remove_blank_weeks()
@@ -116,6 +104,5 @@ class Pull_Data():
 
 
 
-print(Pull_Data(38606).get_scores())
 
-                        
+# print(Pull_Data(38606).get_player_names())
