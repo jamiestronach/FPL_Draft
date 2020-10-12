@@ -2,7 +2,7 @@ from pull_data import Pull_Data
 import itertools
 import random
 
-league_code = 90184
+league_code = 38606
 
 
 class Fixture_Generator():
@@ -174,9 +174,6 @@ class Fixture_Generator():
 
         
 
-    
-        
-print(Fixture_Generator().get_fixtures_set(10))
 
 
         

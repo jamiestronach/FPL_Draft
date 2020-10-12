@@ -17,9 +17,3 @@ class Player():
         self.average_finish = ""
         self.mode_finish = ""
 
-
-    
-
-print(Player(150578).team_name)
-print(Player(150578).name)
-print(Player(150578).score)
