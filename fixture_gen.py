@@ -1,4 +1,4 @@
-from pull_data import Pull_Data
+from main import league_data
 import itertools
 import random
 
@@ -8,8 +8,8 @@ league_code = 38606
 class Fixture_Generator():
 
     def __init__(self, league_code=league_code):
-        self.num_players = int(Pull_Data(league_code=league_code).get_number_players())
-        self.player_id = list(Pull_Data(league_code=league_code).get_player_names())
+        self.num_players = int(league_data.num_players)
+        self.player_id = list(league_data.player_id)
 
     
     def game_combinations(self):
@@ -175,5 +175,3 @@ class Fixture_Generator():
         
 
 
-
-        

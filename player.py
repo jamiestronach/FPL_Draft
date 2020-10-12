@@ -1,4 +1,3 @@
-from pull_data import Pull_Data
 from main import league_data
 
 league_code = 38606

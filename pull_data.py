@@ -27,6 +27,7 @@ class Pull_Data():
         self.num_players = self.get_number_players()
         self.player_names = self.get_player_names()
         self.team_names = self.get_team_names()
+        self.player_id = self.get_player_id()
         
     def get_response(self):
         response = requests.request("GET", self.url, headers=self.headers, data = self.payload)
