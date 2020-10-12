@@ -9,9 +9,6 @@ def main(self, league_code):
 
 
 league_code = 38606
-
-
-
 league_data = Pull_Data(league_code)
 
 

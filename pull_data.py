@@ -23,6 +23,10 @@ class Pull_Data():
     def __init__(self, league_code = league_code):
         self.league_code = str(league_code)
         self.url = "https://draft.premierleague.com/api/league/" + self.league_code + "/details"
+        self.scores = self.get_scores()
+        self.num_players = self.get_number_players()
+        self.player_names = self.get_player_names()
+        self.team_names = self.get_team_names()
         
     def get_response(self):
         response = requests.request("GET", self.url, headers=self.headers, data = self.payload)
