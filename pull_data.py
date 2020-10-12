@@ -28,6 +28,7 @@ class Pull_Data():
         self.player_names = self.get_player_names()
         self.team_names = self.get_team_names()
         self.player_id = self.get_player_id()
+        self.last_active_gameweek = self.get_last_active_gameweek()
         
     def get_response(self):
         response = requests.request("GET", self.url, headers=self.headers, data = self.payload)

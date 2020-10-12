@@ -1,7 +1,5 @@
 from main import league_data
 
-league_code = 38606
-
 class Player():
 
     def __init__(self, id):

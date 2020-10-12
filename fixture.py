@@ -1,4 +1,3 @@
-from fixture_gen import Fixture_Generator
 from main import league_data
 
 

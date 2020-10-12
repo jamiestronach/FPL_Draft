@@ -2,12 +2,10 @@ from main import league_data
 import itertools
 import random
 
-league_code = 38606
-
 
 class Fixture_Generator():
 
-    def __init__(self, league_code=league_code):
+    def __init__(self, league_code):
         self.num_players = int(league_data.num_players)
         self.player_id = list(league_data.player_id)
 
