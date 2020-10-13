@@ -86,7 +86,7 @@ class League():
 
 # for i in range(5000):
 #     fixtures = Fixture_Generator(90184).get_fixtures()
-#     League(fixtures).league_table
+#     print(League(fixtures).league_table)
 
 # finish = dt.now()
 
