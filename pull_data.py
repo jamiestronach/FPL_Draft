@@ -36,14 +36,20 @@ class Pull_Data():
 
     def get_json(self):
         json_object = self.get_response().json()
-        return json_object
+
+        try:
+            json_object["league_entries"]
+            return json_object
+
+        except KeyError:
+            print("Error processing league data. Please check league code.")    
+            raise 
+        
 
     def get_number_players(self):
-        try: 
-            return len(self.get_json()["league_entries"])
-        except KeyError:
-            return "Error loading the data. Please check your league code."
-
+        
+        return len(self.get_json()["league_entries"])
+        
 
     def get_player_id(self):
 
@@ -64,8 +70,7 @@ class Pull_Data():
             else:
                 player_names[player["id"]] = "Average"
 
-
-        return player_names 
+        return player_names
 
     def get_team_names(self):
 
@@ -73,8 +78,10 @@ class Pull_Data():
 
         for player in self.get_json()["league_entries"]:
             team_names[player["id"]] = player["entry_name"]
-        
+    
         return team_names
+
+       
 
     def _get_player_scores(self):
 
@@ -109,8 +116,6 @@ class Pull_Data():
         return names
 
     def get_scores(self):
-        try:
-            return self._remove_blank_weeks()
-        except KeyError:
-            return "Error loading the data. Please check your league code."
+        
+        return self._remove_blank_weeks()
 
